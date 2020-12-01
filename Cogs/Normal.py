@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import time
 
-version = "2.4"
+version = "2.4.1"
 
 
 
