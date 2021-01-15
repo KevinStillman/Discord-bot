@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import time
 
-version = "2.4.1"
+version = "2.4.2"
 
 
 
@@ -47,7 +47,15 @@ class NormalCommands(commands.Cog):
 
         #   #   #   #   WORK ON THIS COMMAND WHEN IMPLEMENTATION IS THOUGHT THROUGH #   #   #   #
     @commands.command()
-    async def mvpexample(self, ctx, kills):
+    async def mvpsubmit(self, ctx):
+        await ctx.send(f"Thank you for your submission {ctx.author}. Your submission will be verified.")
+        verificationChannel = self.client.get_channel(791814748215574578)
+        await verificationChannel.send(f"{ctx.author.display_name} has just submitted a record for the MVP list. @admin please verify!")
+#        verificationChannel.send(ctx.message)
+
+
+    @commands.command()
+    async def mvp(self, ctx, kills):
         who = ctx.author
 
         embed = discord.Embed(color = discord.Colour.orange())
