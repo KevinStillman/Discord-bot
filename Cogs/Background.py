@@ -12,56 +12,23 @@ class Background(commands.Cog):
     async def on_ready(self):
         print("Loading...")
         time.sleep(3)
-        print("Bot of Duty is Online!")
+        print("Literal Bot is Online!")
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
         await member.send("""Thank you for joining the discord server! For a full list of bot commands, type '.help'
-                          Please Read the rules and let an admin know if you have any questions!""")
-        for channel in member.guild.system_channel:
-            if str(channel) == "welcome-channel":
-                await channel.send(f"Welcome to the Server {member.mention}")
+                          Please Read the rules and let an admin know if you have any questions!
+                          Please also change your discord name to reflect your ingame name using /nick""")
+
 
     @commands.Cog.listener()
     async def on_message(self, message):
         print(f"[{message.channel}] {message.author.display_name}: {message.content}")
 #       Profanity filter
 
-#         for files in os.listdir(".\Txtfiles"):
-#             if files.startswith("profanity"):
-#                 bad_words = open("profanity.txt", "r")
-#         for badwords in bad_words.readlines():
-#             if badwords in message.content.lower():
-#                 print("Profanity found")
-#                 await message.delete()
-#                 await message.channel.send("Censored.")
         if "nigger" in message.content or "nigga" in message.content:
             await message.channel.send(f"Whoa there {message.author.display_name} we don't use that word.")
             await message.delete()
-
-#       TeXaS?
-        if "texas" in message.content.lower():
-            if message.author.bot:
-                return
-            else:
-                await message.channel.send(f" Hey {message.author.display_name} ¿?ArE yOu TeXaS¿?")
-
-    # @commands.Cog.listener()
-    # async def on_message(self, message):
-    #     #   TEXT LOGGING
-    #     print(f"[{message.channel}] {message.author.display_name}: {message.content}")
-    #
-    #     # profanity filter FROM FILE
-    #     for file in os.listdir("Txtfiles"):
-    #         if file == "profanity.txt":
-    #             profanityFile = open(file, "r")
-    #
-    #     for line in profanityFile.readline():
-    #         if message.content in profanityFile:
-    #             await message.delete
-    #             await message.channel.send(
-    #                 "Hey there {message.author.display_name}, we don't use that word around here.")
-
 
 def setup(client):
     client.add_cog(Background(client))

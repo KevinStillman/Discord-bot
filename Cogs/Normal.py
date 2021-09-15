@@ -15,13 +15,13 @@ class NormalCommands(commands.Cog):
     async def ping(self,ctx):
         message = ctx.message
         await message.delete()
-        await ctx.send(f"Bot of Duty has a latency of {round(self.client.latency*1000)}ms")
+        await ctx.send(f"Literal Bot has a latency of {round(self.client.latency*1000)}ms")
 
     @commands.command()
     async def version(self, ctx):
         message = ctx.message
         await message.delete()
-        await ctx.send(f"Bot of Duty Current Version: v{version}")
+        await ctx.send(f"Literal Bot Current Version: v{version}")
         await self.client.delete_message()
 
     @commands.command()
@@ -30,9 +30,8 @@ class NormalCommands(commands.Cog):
         await message.delete()
         await ctx.send("Below is the list of contributors to PyBot!")
         embed = discord.Embed(Color= discord.Colour.orange())
-        embed.set_author(name="Bot of Duty Contributors")
-        embed.add_field(name="Kevin", value="Creator and Maintainer of Bot of Duty", inline= True)
-        embed.add_field(name="Adam", value="Reworked Bot to include cogs", inline= True)
+        embed.set_author(name="Literal Bot Contributors")
+        embed.add_field(name="Kevin", value="Creator and Maintainer of Literal Bot", inline= True)
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -45,28 +44,6 @@ class NormalCommands(commands.Cog):
         suggestionfile.close()
         await ctx.send(f"Your suggestion of '{suggestion}' has been sent.")
 
-#         #   #   #   #   WORK ON THIS COMMAND WHEN IMPLEMENTATION IS THOUGHT THROUGH #   #   #   #
-#     @commands.command()
-#     async def mvpsubmit(self, ctx):
-#         await ctx.send(f"Thank you for your submission {ctx.author}. Your submission will be verified.")
-#         verificationChannel = self.client.get_channel(791814748215574578)
-#         await verificationChannel.send(f"{ctx.author.display_name} has just submitted a record for the MVP list. @admin please verify!")
-# #        verificationChannel.send(ctx.message)
-
-
-    # @commands.command()
-    # async def mvp(self, ctx, kills):
-    #     who = ctx.author
-    #
-    #     embed = discord.Embed(color = discord.Colour.orange())
-    #     embed.set_author(name="Server Leaderboard")
-    #
-    #     embed.add_field(name = "MVP", value = "Kevin")
-    #     embed.add_field(name= "Kills", value = kills)
-    #
-    #     embed.add_field(name = "2nd Place", value = "x")
-    #
-    #     await ctx.send(embed=embed)
 
     @commands.command()
     async def live(self, ctx, stream = None, streaming = None):
@@ -87,19 +64,6 @@ class NormalCommands(commands.Cog):
 
             await ctx.send("Make sure to check them out and give them a follow!")
 
-    # @commands.command()
-    # async def update(self, ctx, size=None):
-    #     message = ctx.message
-    #     await message.delete()
-    #     for channel in ctx.guild.channels:
-    #         if channel.name == "announcements":
-    #             if not size:
-    #                 await channel.send("@everyone \nThere is an update for Black Ops Cold War! Make sure you update your game!")
-    #             if size:
-    #                 await channel.send(f"@everyone \nThere is an update for Black Ops Cold War! The update is {size}gb, make sure you update your game! ")
-
-
-
 
     ################################### HELP BELOW ###################################
     @commands.command()
@@ -112,13 +76,12 @@ class NormalCommands(commands.Cog):
         embed = discord.Embed(Color=discord.Colour.orange())
         
         if adminRole in ctx.author.roles:
-            embed.set_author(name="Bot of Duty Commands (Admin)")
+            embed.set_author(name="Literal Bot Commands (Admin)")
 
             embed.add_field(name=".load", value="Takes in Cog name and Loads it", inline=False)
             embed.add_field(name=".reload", value="Takes in Cog name and Reloads it", inline=False)
             embed.add_field(name=".unload", value="Takes in Cog name and Unloads it", inline=False)
             embed.add_field(name=".clear", value="Takes in a number of chats to clear", inline=False)
-            embed.add_field(name=".live", value="Use this command to let the server know you're live streaming!", inline=False)
             embed.add_field(name=".update", value="Use this command to let the server know there's a game update, and optionally, how big the update is.", inline=False)
             embed.add_field(name=".help", value="This is Help", inline=False)
             embed.add_field(name=".ping", value="Returns Pong!", inline=False)
@@ -130,10 +93,9 @@ class NormalCommands(commands.Cog):
 
             await ctx.send(embed=embed)
         else:
-            embed.set_author(name="Bot of Duty Commands")
+            embed.set_author(name="Literal Bot Commands")
 
             embed.add_field(name=".live", value="Use this command to let the server know you're live streaming!", inline=False)
-            embed.add_field(name=".update", value="Use this command to let the server know there's a game update, and optionally, how big the update is.", inline=False)
             embed.add_field(name=".help", value="This is Help", inline=False)
             embed.add_field(name=".ping", value="Returns Pong!", inline=False)
             embed.add_field(name=".version", value="Bot Version", inline=False)
