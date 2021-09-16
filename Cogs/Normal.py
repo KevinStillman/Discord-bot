@@ -2,8 +2,18 @@ import discord
 from discord.ext import commands
 import time
 
-version = "0.2"
+version = "0.3"
 
+def adminCheck(ctx):
+    author = ctx.author
+    adminRole = discord.utils.get(ctx.guild.roles, name="Owner")
+    adminrole2 = discord.utils.get(ctx.guild.roles, name="Admiral")
+    adminrole3 = discord.utils.get(ctx.guild.roles, name="Colonel")
+    adminrole4 = discord.utils.get(ctx.guild.roles, name="Commander")
+    adminrole5 = discord.utils.get(ctx.guild.roles, name="Officer")
+    adminrole6 = discord.utils.get(ctx.guild.roles, name="ADMIN")
+    if adminRole in author.roles or adminrole2 in author.roles or adminrole3 in author.roles or adminrole4 in author.roles or adminrole5 in author.roles or adminrole6 in author.roles:
+        return True
 
 
 class NormalCommands(commands.Cog):
@@ -70,30 +80,30 @@ class NormalCommands(commands.Cog):
     async def help(self, ctx):
         message = ctx.message
         await message.delete()
-        adminRole=discord.utils.get(ctx.guild.roles, name="Admin")
-        adminRole += "Developer"
+
         author = ctx.message.author
         embed = discord.Embed(Color=discord.Colour.orange())
-        
-        if adminRole in ctx.author.roles:
-            embed.set_author(name="Literal Bot Commands (Admin)")
+
+        if adminCheck(ctx):
+            embed.set_author(name=f"Literal Bot Commands (Admin - Called by {ctx.author.display_name})")
 
             embed.add_field(name=".load", value="Takes in Cog name and Loads it", inline=False)
             embed.add_field(name=".reload", value="Takes in Cog name and Reloads it", inline=False)
             embed.add_field(name=".unload", value="Takes in Cog name and Unloads it", inline=False)
             embed.add_field(name=".clear", value="Takes in a number of chats to clear", inline=False)
-            embed.add_field(name=".update", value="Use this command to let the server know there's a game update, and optionally, how big the update is.", inline=False)
+            embed.add_field(name=".ban", value="HAMMER TIME", inline=False)
+
+            # Below this line, post the other commands from 'else' so they show when a normal role does .help
             embed.add_field(name=".help", value="This is Help", inline=False)
             embed.add_field(name=".ping", value="Returns Pong!", inline=False)
             embed.add_field(name=".version", value="Bot Version", inline=False)
             embed.add_field(name=".suggest", value="Used to suggest a function for the bot", inline=False)
-            # Below this line, post the other commands from 'else' so they show when a normal role does .help
-
 
 
             await ctx.send(embed=embed)
+
         else:
-            embed.set_author(name="Literal Bot Commands")
+            embed.set_author(name=f"Literal Bot Commands (Normal member - Called by {ctx.author.display_name})")
 
             embed.add_field(name=".live", value="Use this command to let the server know you're live streaming!", inline=False)
             embed.add_field(name=".help", value="This is Help", inline=False)
