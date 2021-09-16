@@ -36,15 +36,20 @@ class AdminCommands(commands.Cog):
 
 
     @commands.command()
-    async def ban(self, ctx, who, reason):
+    async def ban(self, ctx, who = None, reason = None):
         message = ctx.message
         await message.delete()
-
-        if adminCheck(ctx):
-            await ctx.send(f"GET THE HAMMER {who}!")
-            pass # Will fill this in, just allowing for now to run the bot
+        if not who or not reason:
+            await ctx.send("""To use this command, you MUST include a name and a reason for ban. Please retry with the following:"
+                           .ban [who] [reason]
+                           """)
         else:
-            await ctx.send(f"Hey guys, {ctx.author} just tried to do something very silly!")
+
+            if adminCheck(ctx):
+                await ctx.send(f"GET THE HAMMER {who}!")
+                pass # Will fill this in, just allowing for now to run the bot
+            else:
+                await ctx.send(f"Hey guys, {ctx.author} just tried to do something very silly!")
 
 def setup(client):
     client.add_cog(AdminCommands(client))

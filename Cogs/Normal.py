@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import time
 
-version = "0.3"
+version = "0.3.1"
 
 def adminCheck(ctx):
     author = ctx.author
@@ -60,7 +60,7 @@ class NormalCommands(commands.Cog):
         message = ctx.message
         await message.delete()
         for channel in ctx.guild.channels:
-            if channel.name == "twitch-notifications":
+            if channel.name == "shoutouts":
                 Channel = channel
         if not stream and not streaming:
             await Channel.send("To use this command, use the following syntax:")
@@ -68,11 +68,11 @@ class NormalCommands(commands.Cog):
             await Channel.send("and 'streaming' is an optional message of what you're streaming. (put 'streaming' in quotes)")
         else:
             if stream and not streaming:
-                await Channel.send(f"@everyone Hey guys, {ctx.author.display_name} is live on twitch at https://www.twitch.tv/{stream}!")
+                await Channel.send(f"@here Hey guys, {ctx.author.display_name} is live on twitch at https://www.twitch.tv/{stream}!")
             if stream and streaming:
-                await Channel.send(f"@everyone Hey guys, {ctx.author.display_name} is live on twitch at https://www.twitch.tv/{stream} Streaming: {streaming}")
+                await Channel.send(f"@here Hey guys, {ctx.author.display_name} is live on twitch at https://www.twitch.tv/{stream} Streaming: {streaming}")
 
-            await ctx.send("Make sure to check them out and give them a follow!")
+            await channel.send("Make sure to check them out and give them a follow!")
 
 
     ################################### HELP BELOW ###################################
