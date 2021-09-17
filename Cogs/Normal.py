@@ -1,8 +1,9 @@
 import discord
 from discord.ext import commands
+from discord.utils import get
 import time
 
-version = "0.3.1"
+version = "0.3.2"
 
 def adminCheck(ctx):
     author = ctx.author
@@ -59,6 +60,7 @@ class NormalCommands(commands.Cog):
     async def live(self, ctx, stream = None, streaming = None):
         message = ctx.message
         await message.delete()
+        streamsRole = get(ctx.guild.roles, name="Streams")
         for channel in ctx.guild.channels:
             if channel.name == "shoutouts":
                 Channel = channel
@@ -68,12 +70,20 @@ class NormalCommands(commands.Cog):
             await Channel.send("and 'streaming' is an optional message of what you're streaming. (put 'streaming' in quotes)")
         else:
             if stream and not streaming:
-                await Channel.send(f"@here Hey guys, {ctx.author.display_name} is live on twitch at https://www.twitch.tv/{stream}!")
+                await Channel.send(f"@{streamsRole.mention} Hey guys, {ctx.author.display_name} is live on twitch at https://www.twitch.tv/{stream} !")
             if stream and streaming:
-                await Channel.send(f"@here Hey guys, {ctx.author.display_name} is live on twitch at https://www.twitch.tv/{stream} Streaming: {streaming}")
+                await Channel.send(f"@{streamsRole.mention} Hey guys, {ctx.author.display_name} is live on twitch at https://www.twitch.tv/{stream} Streaming: {streaming}")
 
-            await channel.send("Make sure to check them out and give them a follow!")
 
+
+    @commands.command()
+    async def test(self, ctx):
+        testrole = get(ctx.guild.roles, name="Officer")
+        await ctx.send(f"@{testrole.mention} ping test")
+
+    @commands.command()
+    async def vote(self, ctx, vote):
+        pass
 
     ################################### HELP BELOW ###################################
     @commands.command()
