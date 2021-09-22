@@ -4,6 +4,12 @@ import time
 
 version = "2.4.2"
 
+def adminCheck(ctx):
+    author = ctx.author
+    adminRole = discord.utils.get(ctx.guild.roles, name="Admin")
+    adminRole2 = discord.utils.get(ctx.guild.roles, name="Developer")
+    if adminRole in author.roles or adminRole2 in author.roles:
+        return True
 
 
 class NormalCommands(commands.Cog):
@@ -15,13 +21,13 @@ class NormalCommands(commands.Cog):
     async def ping(self,ctx):
         message = ctx.message
         await message.delete()
-        await ctx.send(f"Bot of Duty has a latency of {round(self.client.latency*1000)}ms")
+        await ctx.send(f"I have a latency of {round(self.client.latency*1000)}ms")
 
     @commands.command()
     async def version(self, ctx):
         message = ctx.message
         await message.delete()
-        await ctx.send(f"Bot of Duty Current Version: v{version}")
+        await ctx.send(f"Bot: v{version}")
         await self.client.delete_message()
 
     @commands.command()
@@ -45,28 +51,6 @@ class NormalCommands(commands.Cog):
         suggestionfile.close()
         await ctx.send(f"Your suggestion of '{suggestion}' has been sent.")
 
-#         #   #   #   #   WORK ON THIS COMMAND WHEN IMPLEMENTATION IS THOUGHT THROUGH #   #   #   #
-#     @commands.command()
-#     async def mvpsubmit(self, ctx):
-#         await ctx.send(f"Thank you for your submission {ctx.author}. Your submission will be verified.")
-#         verificationChannel = self.client.get_channel(791814748215574578)
-#         await verificationChannel.send(f"{ctx.author.display_name} has just submitted a record for the MVP list. @admin please verify!")
-# #        verificationChannel.send(ctx.message)
-
-
-    # @commands.command()
-    # async def mvp(self, ctx, kills):
-    #     who = ctx.author
-    #
-    #     embed = discord.Embed(color = discord.Colour.orange())
-    #     embed.set_author(name="Server Leaderboard")
-    #
-    #     embed.add_field(name = "MVP", value = "Kevin")
-    #     embed.add_field(name= "Kills", value = kills)
-    #
-    #     embed.add_field(name = "2nd Place", value = "x")
-    #
-    #     await ctx.send(embed=embed)
 
     @commands.command()
     async def live(self, ctx, stream = None, streaming = None):
@@ -106,31 +90,30 @@ class NormalCommands(commands.Cog):
     async def help(self, ctx):
         message = ctx.message
         await message.delete()
-        adminRole=discord.utils.get(ctx.guild.roles, name="Admin")
-        adminRole += "Developer"
+
         author = ctx.message.author
         embed = discord.Embed(Color=discord.Colour.orange())
-        
-        if adminRole in ctx.author.roles:
-            embed.set_author(name="Bot of Duty Commands (Admin)")
+
+        if adminCheck(ctx):
+            embed.set_author(name=f"UGN Bot Commands (Admin - Called by {ctx.author.display_name})")
 
             embed.add_field(name=".load", value="Takes in Cog name and Loads it", inline=False)
             embed.add_field(name=".reload", value="Takes in Cog name and Reloads it", inline=False)
             embed.add_field(name=".unload", value="Takes in Cog name and Unloads it", inline=False)
             embed.add_field(name=".clear", value="Takes in a number of chats to clear", inline=False)
+            # Below this line, post the other commands from 'else' so they show when a normal role does .help
+
             embed.add_field(name=".live", value="Use this command to let the server know you're live streaming!", inline=False)
             embed.add_field(name=".update", value="Use this command to let the server know there's a game update, and optionally, how big the update is.", inline=False)
             embed.add_field(name=".help", value="This is Help", inline=False)
             embed.add_field(name=".ping", value="Returns Pong!", inline=False)
             embed.add_field(name=".version", value="Bot Version", inline=False)
             embed.add_field(name=".suggest", value="Used to suggest a function for the bot", inline=False)
-            # Below this line, post the other commands from 'else' so they show when a normal role does .help
-
 
 
             await ctx.send(embed=embed)
         else:
-            embed.set_author(name="Bot of Duty Commands")
+            embed.set_author(name=f"UGN Bot Commands (Normal member - Called by {ctx.author.display_name})")
 
             embed.add_field(name=".live", value="Use this command to let the server know you're live streaming!", inline=False)
             embed.add_field(name=".update", value="Use this command to let the server know there's a game update, and optionally, how big the update is.", inline=False)

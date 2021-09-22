@@ -12,7 +12,7 @@ class Background(commands.Cog):
     async def on_ready(self):
         print("Loading...")
         time.sleep(3)
-        print("Bot of Duty is Online!")
+        print("UGN Bot is Online!")
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -24,17 +24,9 @@ class Background(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+#   TEXT LOGGING
         print(f"[{message.channel}] {message.author.display_name}: {message.content}")
-#       Profanity filter
-
-#         for files in os.listdir(".\Txtfiles"):
-#             if files.startswith("profanity"):
-#                 bad_words = open("profanity.txt", "r")
-#         for badwords in bad_words.readlines():
-#             if badwords in message.content.lower():
-#                 print("Profanity found")
-#                 await message.delete()
-#                 await message.channel.send("Censored.")
+#   PROFANITY FILTER
         if "nigger" in message.content or "nigga" in message.content:
             await message.channel.send(f"Whoa there {message.author.display_name} we don't use that word.")
             await message.delete()
