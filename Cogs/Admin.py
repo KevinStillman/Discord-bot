@@ -5,13 +5,9 @@ from discord.ext.commands import has_role, CheckFailure
 
 def adminCheck(ctx):
     author = ctx.author
-    adminRole = discord.utils.get(ctx.guild.roles, name="Owner")
-    adminrole2 = discord.utils.get(ctx.guild.roles, name="Admiral")
-    adminrole3 = discord.utils.get(ctx.guild.roles, name="Colonel")
-    adminrole4 = discord.utils.get(ctx.guild.roles, name="Commander")
-    adminrole5 = discord.utils.get(ctx.guild.roles, name="Officer")
-    adminrole6 = discord.utils.get(ctx.guild.roles, name="ADMIN")
-    if adminRole in author.roles or adminrole2 in author.roles or adminrole3 in author.roles or adminrole4 in author.roles or adminrole5 in author.roles or adminrole6 in author.roles:
+    adminRole = discord.utils.get(ctx.guild.roles, name="Admin")
+    adminRole2 = discord.utils.get(ctx.guild.roles, name="Developer")
+    if adminRole in author.roles or adminRole2 in author.roles:
         return True
 
 
@@ -19,11 +15,7 @@ def adminCheck(ctx):
 class AdminCommands(commands.Cog):
     def __init__(self,client):
         self.client = client
-
-
-
-
-
+        
     @commands.command()
     async def clear(self, ctx, amount=5):
         message = ctx.message
@@ -50,6 +42,7 @@ class AdminCommands(commands.Cog):
                 pass # Will fill this in, just allowing for now to run the bot
             else:
                 await ctx.send(f"Hey guys, {ctx.author} just tried to do something very silly!")
+
 
 def setup(client):
     client.add_cog(AdminCommands(client))
