@@ -44,5 +44,5 @@ class AdminCommands(commands.Cog):
                 await ctx.send(f"Hey guys, {ctx.author} just tried to do something very silly!")
 
 
-def setup(client):
-    client.add_cog(AdminCommands(client))
+async def setup(client):
+    await client.add_cog(AdminCommands(client))

@@ -2,17 +2,34 @@ import discord
 import os
 from discord.ext import commands
 import time
+import random
+
+lovenotes = ["I fucking love you so hard...",
+            "You've got a nice big juicy cock, sir",
+            "Spank me daddy",
+            "You have a funny feeling you would've been followed...",
+            "imagine not being 126 lmao fucking noob",
+            "Make me a sandwich.",
+            "Service yourself, fucking loser",
+            "Are you texus!?",
+            "beast sucks anus",
+            "Imagine having a shadow and sucking at wardens",
+            "Imagine, imagining",
+            "You know why they call him muff right? Cause he's a bitch."
+            "lol scammed, fucking idiot",
+            "I fucked your account, sorry...",
+            "imagine playing leagues lol"
+]
 
 
 class Background(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+
     @commands.Cog.listener()
     async def on_ready(self):
-        print("Loading...")
-        time.sleep(3)
-        print("UGN Bot is Online!")
+        print("BadBot is Online!")
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -22,38 +39,51 @@ class Background(commands.Cog):
             if str(channel) == "welcome-channel":
                 await channel.send(f"Welcome to the Server {member.mention}")
 
+    @commands.command()
+    async def vc(self, ctx):
+        channel = ctx.author.voice.channel
+        vc = await channel.connect()
+        vc.play(discord.FFmpegPCMAudio('shit.mp4', executable="C:/ffmpeg/bin/ffmpeg.exe"), after=lambda e: print('done', e) )
+        await voice.channel.diconnect()
+
     @commands.Cog.listener()
     async def on_message(self, message):
 #   TEXT LOGGING
         print(f"[{message.channel}] {message.author.display_name}: {message.content}")
 #   PROFANITY FILTER
-        if "nigger" in message.content or "nigga" in message.content:
-            await message.channel.send(f"Whoa there {message.author.display_name} we don't use that word.")
-            await message.delete()
+        if "nigger" in message.content.lower() or "nigga" in message.content.lower() or "fucker" in message.content.lower():
+                await message.channel.send(f"Whoa there {message.author.display_name} we don't use that word.")
+                await message.delete()
+                with open('cat.jpg', 'rb') as f:
+                    picture = discord.File(f)
+                    await message.channel.send(file=picture)
 
-#       TeXaS?
-        if "texas" in message.content.lower():
+#       random bot call?
+        if " bot" in message.content.lower() or "bot " in message.content.lower():
             if message.author.bot:
                 return
             else:
-                await message.channel.send(f" Hey {message.author.display_name} ¿?ArE yOu TeXaS¿?")
+                await message.channel.send(random.choice(lovenotes))
 
-    # @commands.Cog.listener()
-    # async def on_message(self, message):
-    #     #   TEXT LOGGING
-    #     print(f"[{message.channel}] {message.author.display_name}: {message.content}")
-    #
-    #     # profanity filter FROM FILE
-    #     for file in os.listdir("Txtfiles"):
-    #         if file == "profanity.txt":
-    #             profanityFile = open(file, "r")
-    #
-    #     for line in profanityFile.readline():
-    #         if message.content in profanityFile:
-    #             await message.delete
-    #             await message.channel.send(
-    #                 "Hey there {message.author.display_name}, we don't use that word around here.")
+        if message.author.display_name == "Johan":
+            x = random.range(50)
+            if x < 13:
+                 await message.channel.send("Johan just SHUT THE FUCK UP")
 
+        if message.author.display_name == "BeastlyMuff":
+            z = random.choice(range(6))
+            if z == 1:
+                if message.content.startswith("m!play"):
+                    await message.channel.send("Everyone ready for another garbage song?")
 
-def setup(client):
-    client.add_cog(Background(client))
+        if message.author.display_name == "Ethun":
+            y = random.choice(range(10))
+            if y < 2:
+                await message.channel.send("Eventually i'll write something here to piss you off")
+
+        elif message.content.startswith('???'):  # Saying ??? will make bot leave channel
+            if (message.guild.voice_client):  # If the bot is in a voice channel
+                await message.guild.voice_client.disconnect()  # Leave the channel
+                # await message.channel.send('Bot left')
+async def setup(client):
+    await client.add_cog(Background(client))

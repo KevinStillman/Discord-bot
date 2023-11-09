@@ -1,9 +1,13 @@
 import discord
 from discord.ext import commands
 import time
+import random
+import requests
+import bs4
+from bs4 import BeautifulSoup
 
-version = "2.4.2"
 
+version = "2.5"
 def adminCheck(ctx):
     author = ctx.author
     adminRole = discord.utils.get(ctx.guild.roles, name="Admin")
@@ -16,6 +20,14 @@ class NormalCommands(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+
+    @commands.command()
+    async def m(self, ctx, song):
+        await ctx.send(f"m!play {song}")
+
+    @commands.command()
+    async def wom(self, ctx, username):
+        await ctx.send(f"https://www.wiseoldman.net/players/{username}")
 
     @commands.command()
     async def ping(self,ctx):
@@ -34,23 +46,11 @@ class NormalCommands(commands.Cog):
     async def contributors(self, ctx):
         message = ctx.message
         await message.delete()
-        await ctx.send("Below is the list of contributors to PyBot!")
+        await ctx.send("Below is the list of contributors to BadBot!")
         embed = discord.Embed(Color= discord.Colour.orange())
-        embed.set_author(name="Bot of Duty Contributors")
-        embed.add_field(name="Kevin", value="Creator and Maintainer of Bot of Duty", inline= True)
-        embed.add_field(name="Adam", value="Reworked Bot to include cogs", inline= True)
+        embed.set_author(name="BadBot Contributors")
+        embed.add_field(name="Kevin", value="Creator and Maintainer of BadBot", inline= True)
         await ctx.send(embed=embed)
-
-    @commands.command()
-    async def suggest(self, ctx, suggestion):
-        message = ctx.message
-        await message.delete()
-        suggestion = str(suggestion)
-        suggestionfile = open("suggestions.txt", "a")
-        suggestionfile.write(suggestion + "\n")
-        suggestionfile.close()
-        await ctx.send(f"Your suggestion of '{suggestion}' has been sent.")
-
 
     @commands.command()
     async def live(self, ctx, stream = None, streaming = None):
@@ -71,18 +71,6 @@ class NormalCommands(commands.Cog):
 
             await ctx.send("Make sure to check them out and give them a follow!")
 
-    # @commands.command()
-    # async def update(self, ctx, size=None):
-    #     message = ctx.message
-    #     await message.delete()
-    #     for channel in ctx.guild.channels:
-    #         if channel.name == "announcements":
-    #             if not size:
-    #                 await channel.send("@everyone \nThere is an update for Black Ops Cold War! Make sure you update your game!")
-    #             if size:
-    #                 await channel.send(f"@everyone \nThere is an update for Black Ops Cold War! The update is {size}gb, make sure you update your game! ")
-
-
 
 
     ################################### HELP BELOW ###################################
@@ -92,10 +80,10 @@ class NormalCommands(commands.Cog):
         await message.delete()
 
         author = ctx.message.author
-        embed = discord.Embed(Color=discord.Colour.orange())
+        embed = discord.Embed()
 
         if adminCheck(ctx):
-            embed.set_author(name=f"UGN Bot Commands (Admin - Called by {ctx.author.display_name})")
+            embed.set_author(name=f"BadBot Commands (Admin - Called by {ctx.author.display_name})")
 
             embed.add_field(name=".load", value="Takes in Cog name and Loads it", inline=False)
             embed.add_field(name=".reload", value="Takes in Cog name and Reloads it", inline=False)
@@ -108,22 +96,20 @@ class NormalCommands(commands.Cog):
             embed.add_field(name=".help", value="This is Help", inline=False)
             embed.add_field(name=".ping", value="Returns Pong!", inline=False)
             embed.add_field(name=".version", value="Bot Version", inline=False)
-            embed.add_field(name=".suggest", value="Used to suggest a function for the bot", inline=False)
 
 
             await ctx.send(embed=embed)
         else:
-            embed.set_author(name=f"UGN Bot Commands (Normal member - Called by {ctx.author.display_name})")
+            embed.set_author(name=f"BadBot Commands (Normal member - Called by {ctx.author.display_name})")
 
             embed.add_field(name=".live", value="Use this command to let the server know you're live streaming!", inline=False)
             embed.add_field(name=".update", value="Use this command to let the server know there's a game update, and optionally, how big the update is.", inline=False)
             embed.add_field(name=".help", value="This is Help", inline=False)
             embed.add_field(name=".ping", value="Returns Pong!", inline=False)
             embed.add_field(name=".version", value="Bot Version", inline=False)
-            embed.add_field(name=".suggest", value="Used to suggest a function for the bot", inline=False)
 
             await ctx.send(embed=embed)
 
 
-def setup(client):
-    client.add_cog(NormalCommands(client))
+async def setup(client):
+    await client.add_cog(NormalCommands(client))

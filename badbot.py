@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import os
 
-intents = discord.Intents.default()
+intents = discord.Intents.all()
 intents.members = True
 intents.reactions = True
 
@@ -18,7 +18,7 @@ async def load(ctx, extension):
 @client.command()
 async def unload(ctx, extension):
     client.unload_extension(f"Cogs.{extension}")
-
+    channel = client.get_channel()
 
 @client.command()
 async def reload(ctx, extension):
@@ -30,10 +30,11 @@ async def reload(ctx, extension):
 @client.command()
 async def botplaying(ctx, playing):
     await client.change_presence(activity=discord.Game(name=playing))
-
-for file in os.listdir("./Cogs"):
-    if file.endswith(".py"):
-        client.load_extension(f"Cogs.{file[:-3]}")
+@client.command()
+async def load2(ctx):
+    for file in os.listdir("./Cogs"):
+        if file.endswith(".py"):
+            await client.load_extension(f"Cogs.{file[:-3]}")
 
 # ROLES -- Currently left out until further implementation inside the discord is setup
 
@@ -68,5 +69,5 @@ for file in os.listdir("./Cogs"):
 #         await user.add_roles(Role)
 
 
-token = "ODg3Nzk2MDk3Mzc5MDc4MTc0.YUJWjA.1hKs6RlcsAs-ZQgKtZqYRUidKw8"
+token = "MTE3MTE1NTk2MTY1MDYzMDc1Ng.GUgCcF.KNK82jpx6Wp3H_rAlZh71RyHToit51Ke0iXhB8"
 client.run(token)

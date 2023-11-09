@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import os
 
-intents = discord.Intents.default()
+intents = discord.Intents.all()
 intents.members = True
 intents.reactions = True
 
@@ -13,6 +13,9 @@ client.remove_command("help")
 @client.command()
 async def load(ctx, extension):
     client.load_extension(f"Cogs.{extension}")
+    for file in os.listdir("./Cogs"):
+        if file.endswith(".py"):
+            client.load_extension(f"Cogs.{file[:-3]}")
 
 
 @client.command()
@@ -31,9 +34,6 @@ async def reload(ctx, extension):
 async def botplaying(ctx, playing):
     await client.change_presence(activity=discord.Game(name=playing))
 
-for file in os.listdir("./Cogs"):
-    if file.endswith(".py"):
-        client.load_extension(f"Cogs.{file[:-3]}")
 
 # ROLES
 
@@ -68,5 +68,5 @@ async def on_reaction_add(reaction, user):
         await user.add_roles(Role)
 
 
-token = "GWZm27maOjfM10VkIb4P18Ilf_PW19t7"
+token = "xlceUeJWVryZ_tzFBKWy6YCzdv_ZudZi"
 client.run(token)
