@@ -2,6 +2,7 @@ import discord
 import os
 from discord.ext import commands
 import time
+
 import random
 
 lovenotes = ["I fucking love you so hard...",
@@ -35,23 +36,20 @@ class Background(commands.Cog):
     async def on_member_join(self, member):
         await member.send("""Thank you for joining the discord server! For a full list of bot commands, type '.help'
                           Please Read the rules and let an admin know if you have any questions!""")
-        for channel in member.guild.system_channel:
-            if str(channel) == "welcome-channel":
-                await channel.send(f"Welcome to the Server {member.mention}")
 
     @commands.command()
     async def vc(self, ctx):
         channel = ctx.author.voice.channel
         vc = await channel.connect()
         vc.play(discord.FFmpegPCMAudio('shit.mp4', executable="C:/ffmpeg/bin/ffmpeg.exe"), after=lambda e: print('done', e) )
-        await voice.channel.diconnect()
+
 
     @commands.Cog.listener()
     async def on_message(self, message):
 #   TEXT LOGGING
         print(f"[{message.channel}] {message.author.display_name}: {message.content}")
 #   PROFANITY FILTER
-        if "nigger" in message.content.lower() or "nigga" in message.content.lower() or "fucker" in message.content.lower():
+        if "nigger" in message.content.lower() or "nigga" in message.content.lower():
                 await message.channel.send(f"Whoa there {message.author.display_name} we don't use that word.")
                 await message.delete()
                 with open('cat.jpg', 'rb') as f:
@@ -66,20 +64,35 @@ class Background(commands.Cog):
                 await message.channel.send(random.choice(lovenotes))
 
         if message.author.display_name == "Johan":
-            x = random.range(50)
-            if x < 13:
-                 await message.channel.send("Johan just SHUT THE FUCK UP")
+            x = random.choice(range(10))
+            if x < 3:
+                print(f"RNG CHECK! \n{message}")
+                await message.channel.send("Johan... who let you out of the cage?")
+
+        if message.author.display_name == "Rav en":
+            x = random.choice(range(20))
+            if x < 3:
+                print(f"RNG CHECK! \n{message}")
+                await message.channel.send("Raven is here? Must be leagues season")
 
         if message.author.display_name == "BeastlyMuff":
             z = random.choice(range(6))
             if z == 1:
                 if message.content.startswith("m!play"):
+                    print(f"RNG CHECK! \n{message}")
                     await message.channel.send("Everyone ready for another garbage song?")
 
         if message.author.display_name == "Ethun":
             y = random.choice(range(10))
             if y < 2:
+                print(f"RNG CHECK! \n{message}")
                 await message.channel.send("Eventually i'll write something here to piss you off")
+
+        if message.author.display_name == "A Witch Dr":
+            y = random.choice(range(10))
+            if y < 2:
+                print(f"RNG CHECK! \n{message}")
+                await message.channel.send("Oh shit the leagues sweatmeister is talking")
 
         elif message.content.startswith('???'):  # Saying ??? will make bot leave channel
             if (message.guild.voice_client):  # If the bot is in a voice channel

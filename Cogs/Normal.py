@@ -7,7 +7,8 @@ import bs4
 from bs4 import BeautifulSoup
 
 
-version = "2.5"
+
+version = "2.6"
 def adminCheck(ctx):
     author = ctx.author
     adminRole = discord.utils.get(ctx.guild.roles, name="Admin")
@@ -41,6 +42,10 @@ class NormalCommands(commands.Cog):
         await message.delete()
         await ctx.send(f"Bot: v{version}")
         await self.client.delete_message()
+
+    @commands.command()
+    async def bump(self, ctx):
+        await ctx.send(f"Bump the clan forum post here! https://secure.runescape.com/m=forum/c=nle9zDNnmuk/forums?320,321,629,66285295,1,347580654,#1")
 
     @commands.command()
     async def contributors(self, ctx):
@@ -96,6 +101,8 @@ class NormalCommands(commands.Cog):
             embed.add_field(name=".help", value="This is Help", inline=False)
             embed.add_field(name=".ping", value="Returns Pong!", inline=False)
             embed.add_field(name=".version", value="Bot Version", inline=False)
+            embed.add_field(name=".bump", value="Provides a link to bump the clan forum post", inline=False)
+
 
 
             await ctx.send(embed=embed)
@@ -106,7 +113,8 @@ class NormalCommands(commands.Cog):
             embed.add_field(name=".update", value="Use this command to let the server know there's a game update, and optionally, how big the update is.", inline=False)
             embed.add_field(name=".help", value="This is Help", inline=False)
             embed.add_field(name=".ping", value="Returns Pong!", inline=False)
-            embed.add_field(name=".version", value="Bot Version", inline=False)
+            embed.add_field(name=".version", value=f"Bot Version. (Currently {version})", inline=False)
+            embed.add_field(name=".bump", value="Provides a link to bump the clan forum post", inline=False)
 
             await ctx.send(embed=embed)
 

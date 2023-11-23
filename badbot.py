@@ -26,15 +26,34 @@ async def reload(ctx, extension):
     client.load_extension(f"Cogs.{extension}")
     print(f"Reload Finished by {ctx.author}")
 
-
 @client.command()
 async def botplaying(ctx, playing):
     await client.change_presence(activity=discord.Game(name=playing))
+
 @client.command()
-async def load2(ctx):
-    for file in os.listdir("./Cogs"):
-        if file.endswith(".py"):
-            await client.load_extension(f"Cogs.{file[:-3]}")
+async def run(ctx):
+    needroles = False
+    if ctx.author.display_name == "BeastlyMuff - JB" or ctx.author.display_name == "Kevin - Ciwa" or ctx.author.display_name == "Johan":
+        for file in os.listdir("./Cogs"):
+            if file.endswith(".py"):
+                await client.load_extension(f"Cogs.{file[:-3]}")
+        role = discord.utils.find(lambda r: r.name == 'Member', ctx.message.guild.roles)
+        for member in ctx.guild.members:
+            if role in member.roles:
+                print(f"{role} found for {ctx.member}: {member.roles}")
+            else:
+                needroles = True
+            if needroles:
+                channel = client.get_channel(1177277807861182596)
+                await channel.send("Someone needs a role")
+                break
+    else:
+        pass
+
+
+
+    await ctx.send("BadBot online! For a list of current commands, type .help")
+
 
 # ROLES -- Currently left out until further implementation inside the discord is setup
 
@@ -69,5 +88,7 @@ async def load2(ctx):
 #         await user.add_roles(Role)
 
 
-token = "MTE3MTE1NTk2MTY1MDYzMDc1Ng.GUgCcF.KNK82jpx6Wp3H_rAlZh71RyHToit51Ke0iXhB8"
+with open("token.txt", "r") as tokenfile:
+    token = tokenfile.readline()
 client.run(token)
+
