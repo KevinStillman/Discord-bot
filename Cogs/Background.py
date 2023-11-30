@@ -6,7 +6,6 @@ import time
 import random
 
 lovenotes = ["I fucking love you so hard...",
-            "You've got a nice big juicy cock, sir",
             "Spank me daddy",
             "You have a funny feeling you would've been followed...",
             "imagine not being 126 lmao fucking noob",
@@ -63,36 +62,45 @@ class Background(commands.Cog):
             else:
                 await message.channel.send(random.choice(lovenotes))
 
+#   CHAT RNG CHECK
+
         if message.author.display_name == "Johan":
-            x = random.choice(range(10))
+            x = random.choice(range(90))
             if x < 3:
                 print(f"RNG CHECK! \n{message}")
                 await message.channel.send("Johan... who let you out of the cage?")
 
         if message.author.display_name == "Rav en":
-            x = random.choice(range(20))
+            x = random.choice(range(80))
             if x < 3:
                 print(f"RNG CHECK! \n{message}")
                 await message.channel.send("Raven is here? Must be leagues season")
 
         if message.author.display_name == "BeastlyMuff":
-            z = random.choice(range(6))
-            if z == 1:
+            z = random.choice(range(60))
+            if z == 18:
                 if message.content.startswith("m!play"):
                     print(f"RNG CHECK! \n{message}")
                     await message.channel.send("Everyone ready for another garbage song?")
 
         if message.author.display_name == "Ethun":
-            y = random.choice(range(10))
+            y = random.choice(range(100))
             if y < 2:
                 print(f"RNG CHECK! \n{message}")
-                await message.channel.send("Eventually i'll write something here to piss you off")
+                await message.channel.send("Ethun, ethun, bananafanafofethun, fee fi fo feethun, eeeeethun!")
 
         if message.author.display_name == "A Witch Dr":
-            y = random.choice(range(10))
+            y = random.choice(range(100))
             if y < 2:
                 print(f"RNG CHECK! \n{message}")
                 await message.channel.send("Oh shit the leagues sweatmeister is talking")
+
+        if message.author.display_name == "Lexi-Slutberries":
+            y = random.choice(range(10))
+            if y < 2:
+                print(f"RNG CHECK! \n{message}")
+                await message.channel.send("Wow you never talk in chat, hey slutberries!")
+
 
         elif message.content.startswith('???'):  # Saying ??? will make bot leave channel
             if (message.guild.voice_client):  # If the bot is in a voice channel

@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 
 
 
-version = "2.6"
+version = "2.6.1"
 def adminCheck(ctx):
     author = ctx.author
     adminRole = discord.utils.get(ctx.guild.roles, name="Admin")
@@ -21,11 +21,9 @@ class NormalCommands(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-
     @commands.command()
-    async def m(self, ctx, song):
-        await ctx.send(f"m!play {song}")
-
+    async def enablepurples(self, ctx):
+        await ctx.send(f"Purples have been enabled for the party of {ctx.message.author.display_name} for the next 60 minutes. Happy Raiding!")
     @commands.command()
     async def wom(self, ctx, username):
         await ctx.send(f"https://www.wiseoldman.net/players/{username}")
@@ -33,13 +31,11 @@ class NormalCommands(commands.Cog):
     @commands.command()
     async def ping(self,ctx):
         message = ctx.message
-        await message.delete()
         await ctx.send(f"I have a latency of {round(self.client.latency*1000)}ms")
 
     @commands.command()
     async def version(self, ctx):
         message = ctx.message
-        await message.delete()
         await ctx.send(f"Bot: v{version}")
         await self.client.delete_message()
 
@@ -50,7 +46,6 @@ class NormalCommands(commands.Cog):
     @commands.command()
     async def contributors(self, ctx):
         message = ctx.message
-        await message.delete()
         await ctx.send("Below is the list of contributors to BadBot!")
         embed = discord.Embed(Color= discord.Colour.orange())
         embed.set_author(name="BadBot Contributors")
@@ -60,7 +55,6 @@ class NormalCommands(commands.Cog):
     @commands.command()
     async def live(self, ctx, stream = None, streaming = None):
         message = ctx.message
-        await message.delete()
         for channel in ctx.guild.channels:
             if channel.name == "twitch-notifications":
                 Channel = channel
@@ -94,6 +88,7 @@ class NormalCommands(commands.Cog):
             embed.add_field(name=".reload", value="Takes in Cog name and Reloads it", inline=False)
             embed.add_field(name=".unload", value="Takes in Cog name and Unloads it", inline=False)
             embed.add_field(name=".clear", value="Takes in a number of chats to clear", inline=False)
+            embed.add_field(name=".run", value="Run the bot when in a 'Ready' State", inline=False)
             # Below this line, post the other commands from 'else' so they show when a normal role does .help
 
             embed.add_field(name=".live", value="Use this command to let the server know you're live streaming!", inline=False)
@@ -102,6 +97,9 @@ class NormalCommands(commands.Cog):
             embed.add_field(name=".ping", value="Returns Pong!", inline=False)
             embed.add_field(name=".version", value="Bot Version", inline=False)
             embed.add_field(name=".bump", value="Provides a link to bump the clan forum post", inline=False)
+            embed.add_field(name=".wom [player name]", value="Provides a Wise Old Man link to the username provided", inline=False)
+            embed.add_field(name=".uptime", value="Returns how long this bot instance has been running", inline=False)
+            embed.add_field(name=".enablepurples", value="Not getting lucky at raids? Try this!", inline=False)
 
 
 
@@ -110,11 +108,13 @@ class NormalCommands(commands.Cog):
             embed.set_author(name=f"BadBot Commands (Normal member - Called by {ctx.author.display_name})")
 
             embed.add_field(name=".live", value="Use this command to let the server know you're live streaming!", inline=False)
-            embed.add_field(name=".update", value="Use this command to let the server know there's a game update, and optionally, how big the update is.", inline=False)
             embed.add_field(name=".help", value="This is Help", inline=False)
             embed.add_field(name=".ping", value="Returns Pong!", inline=False)
             embed.add_field(name=".version", value=f"Bot Version. (Currently {version})", inline=False)
             embed.add_field(name=".bump", value="Provides a link to bump the clan forum post", inline=False)
+            embed.add_field(name=".wom [player name]", value="Provides a Wise Old Man link to the username provided", inline=False)
+            embed.add_field(name=".uptime", value="Returns how long this bot instance has been running", inline=False)
+            embed.add_field(name=".enablepurples", value="Not getting lucky at raids? Try this!", inline=False)
 
             await ctx.send(embed=embed)
 

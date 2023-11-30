@@ -1,5 +1,0 @@
-check for news/updates and post them in general or a new channel
-scan for music bot mentions/commands and if command not made from proper channel, remove message and return message to send in proper channel.
-command to check KD
-remove persons message when a command is called
-finish roles

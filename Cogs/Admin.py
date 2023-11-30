@@ -30,7 +30,6 @@ class AdminCommands(commands.Cog):
     @commands.command()
     async def ban(self, ctx, who = None, reason = None):
         message = ctx.message
-        await message.delete()
         if not who or not reason:
             await ctx.send("""To use this command, you MUST include a name and a reason for ban. Please retry with the following:"
                            .ban [who] [reason]
