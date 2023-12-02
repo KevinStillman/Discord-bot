@@ -47,7 +47,7 @@ async def run(ctx):
         role = discord.utils.find(lambda r: r.name == 'member', ctx.message.guild.roles)
         for member in ctx.guild.members:
             if role in member.roles:
-                print(f"{role} found for {ctx.member}: {member.roles}")
+                print(f"{role} found for {member}")
             else:
                 needroles = True
         if needroles:
